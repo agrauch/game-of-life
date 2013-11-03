@@ -12,6 +12,6 @@ With the dependencies installed, run `npm install` in the repo directory to set 
 
 ## Running Unit Tests
 
-Run `grunt spec`
+Run `grunt test`
 
 ## Running the Application

@@ -1,13 +1,15 @@
 {
   "name": "GameOfLife",
   "version": "0.0.0",
-  "description": "Evolve generations through the game of lide",
+  "description": "Evolve generations through the game of life",
   "author": "Andrew Grauch",
   "devDependencies": {
     "grunt-contrib-jshint": "~0.6.4",
-    "grunt-simple-mocha": "0.4.0"
+    "grunt-simple-mocha": "~0.4.0",
+    "grunt-contrib-watch": "~0.5.3",
+    "should": "~2.0.2"
   },
   "dependencies": {
-    "underscore": "1.5.2"
+    "underscore": "~1.5.2"
   }
 }
