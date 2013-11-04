@@ -22,7 +22,7 @@ function validateBoardSize (board) {
 }
 
 // Evolution helpers
-function countLiveNeighborsInAdjacentCell (row, cellIndex) {
+function cellValue (row, cellIndex) {
   return row[cellIndex] || 0;
 }
 
@@ -31,9 +31,10 @@ function countLiveNeighborsInAdjacentRow (row, cellIndex) {
     return 0;
   }
   
-  return _.reduce(_.range(cellIndex - 1, cellIndex + 2), function (sum, adjacentIndex) {
-    return sum + countLiveNeighborsInAdjacentCell(row, adjacentIndex);
-  }, 0);
+  // count the live cells in given cell and the two adjacent cells
+  return cellValue(row, cellIndex - 1) +
+         cellValue(row, cellIndex) + 
+         cellValue(row, cellIndex + 1);
 }
 
 // Board API
@@ -42,23 +43,24 @@ module.exports.validateBoard = function (board) {
 };
 
 module.exports.countLiveNeighbors = function (board, rowIndex, cellIndex) {
+  // count live neighbors in the rows above and below the cell and in the two adjacent cells 
   return countLiveNeighborsInAdjacentRow(board[rowIndex - 1], cellIndex) + 
-         countLiveNeighborsInAdjacentCell(board[rowIndex], cellIndex - 1) + 
-         countLiveNeighborsInAdjacentCell(board[rowIndex], cellIndex + 1) + 
+         cellValue(board[rowIndex], cellIndex - 1) + 
+         cellValue(board[rowIndex], cellIndex + 1) + 
          countLiveNeighborsInAdjacentRow(board[rowIndex + 1], cellIndex); 
 };
 
 module.exports.cellIsAliveInNextGeneration = function (board, rowIndex, cellIndex) {
-  var neighborCount = this.countLiveNeighbors(board, rowIndex, cellIndex),
+  var liveNeighbors = this.countLiveNeighbors(board, rowIndex, cellIndex),
       cellIsAlive = board[rowIndex][cellIndex];
   
   // if a live cell has 2 or 3 neighbors, it survives to the next generation
-  if (cellIsAlive && (neighborCount == 2 || neighborCount == 3)) {
+  if (cellIsAlive && (liveNeighbors == 2 || liveNeighbors == 3)) {
     return true;
   }
   
   // if a dead cell has 3 neighbors, it reproduces in the next generation
-  if (!cellIsAlive && neighborCount == 3) {
+  if (!cellIsAlive && liveNeighbors == 3) {
     return true;
   }
   
