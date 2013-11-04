@@ -16,10 +16,7 @@ module.exports = function (grunt) {
     watch: {
       validate_and_test: {
         files: ['**/*.js'],
-        tasks: ['jshint', 'test'],
-        options: {
-          spawn: false,
-        },
+        tasks: ['jshint', 'test']
       },
     }
   });
