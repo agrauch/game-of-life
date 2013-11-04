@@ -16,7 +16,7 @@ function validateEqualRows (board) {
 }
 
 function validateBoardSize (board) {
-  return board.length == minLength && allRowsMeetCriteria(board, function (row) {
+  return board.length >= minLength && allRowsMeetCriteria(board, function (row) {
     return row.length >= minLength;
   });
 }
@@ -74,4 +74,10 @@ module.exports.nextGeneration = function (board) {
       return self.cellIsAliveInNextGeneration(board, rowIndex, cellIndex) ? 1 : 0;
     });
   });
+};
+
+module.exports.toString = function (board) {
+  return _.map(board, function (row) {
+    return row.join(' ');
+  }).join('\n');
 };

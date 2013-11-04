@@ -16,8 +16,12 @@ describe('board functions', function () {
       boardFunctions.validateBoard([[0]]).should.equal(false);
     });
     
-    it('accepts a board 2x2 or larger', function () {
+    it('accepts a 2x2 board', function () {
       boardFunctions.validateBoard([[0,1],[0,1]]).should.equal(true);
+    });
+    
+    it('accepts a larger than 2x2 board', function () {
+      boardFunctions.validateBoard([[0,1,1],[0,1,1],[0,0,0]]).should.equal(true);
     });
   });
   
